@@ -1,0 +1,22 @@
+# Just for testing purpose, not recommended for production use
+name: varnish-compose
+services:
+  varnish:
+    image: varnish:stable
+    container_name: varnish
+    volumes:
+      - "./config/example.vcl:/etc/varnish/default.vcl"
+    ports:
+      - "8070:80"
+    tmpfs:
+      - /var/lib/varnish:exec
+    environment:
+      - VARNISH_SIZE=2G  
+    command: "-p default_keep=300"
+    depends_on:
+      - "httpd" 
+  httpd:
+    image: httpd:latest
+    container_name: httpd
+    ports:
+      - "8080:80"
