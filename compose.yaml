@@ -2,7 +2,7 @@
 name: varnish-compose
 services:
   varnish:
-    image: varnish:stable
+    image: varnish:7.5.0
     container_name: varnish
     volumes:
       - "./config/example.vcl:/etc/varnish/default.vcl"
@@ -11,7 +11,7 @@ services:
     tmpfs:
       - /var/lib/varnish:exec
     environment:
-      - VARNISH_SIZE=2G  
+      - VARNISH_SIZE=2G
     command: "-p default_keep=300"
     depends_on:
       - "httpd" 
@@ -20,3 +20,6 @@ services:
     container_name: httpd
     ports:
       - "8080:80"
+networks:
+  default:
+    external: false
