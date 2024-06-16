@@ -4,6 +4,7 @@ services:
   varnish:
     image: varnish:7.5.0
     container_name: varnish
+    user: root
     volumes:
       - "./config/example.vcl:/etc/varnish/default.vcl"
     ports:
